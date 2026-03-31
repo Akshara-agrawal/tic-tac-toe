@@ -6,11 +6,10 @@
     align-items: center;
 }
 .square{
-    color: none;
     background-color: transparent;
-    border:1px solid black;
-    height: 8vh;
-    width: 6vw;
-    font-size: 18px;
-    align-items: center;
+    border: 1px solid black;
+    height: 50px;
+    width: 50px;
+    /* font-size: 18px; */
+    /* align-items: center; */
 }

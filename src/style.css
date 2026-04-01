@@ -1,15 +1,35 @@
-.ttt{
-    margin: 15vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+*{
+    margin: 0;
+    padding: 0;
 }
+
+.ttt{
+    display: inline-block;
+    border: 1px solid black;
+}
+
+.board-row {
+    display: flex;
+}
+.status{
+    font-size: 18px;
+    margin: 2%;
+    padding: 2%;
+}
+
 .square{
     background-color: transparent;
     border: 1px solid black;
     height: 50px;
     width: 50px;
-    /* font-size: 18px; */
-    /* align-items: center; */
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.square:focus {
+    outline: none;
 }

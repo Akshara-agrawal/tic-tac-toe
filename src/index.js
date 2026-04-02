@@ -15,9 +15,7 @@ function Square({ value, onsqrclick }) {
   );
 }
 
-function Board() {
-  const [xIsNext, setxIsNext] = useState(true);
-  const [sqr, setsqr] = useState(Array(9).fill(null));
+function Board({xIsNext ,sqr,onplay}) {
   function handleclick(i) {
     if (sqr[i] || CalculateWins(sqr)) {
       return;
@@ -28,17 +26,16 @@ function Board() {
     } else {
       currsqr[i] = "O";
     }
-    setsqr(currsqr);
-    setxIsNext(!xIsNext);
+    onplay(currsqr)
   }
 
   const winner=CalculateWins(sqr)
   let status;
   if(winner){
-    status="Winner"+winner
+    status="Winner: " + winner;
   }
   else{
-    status="Next Player"+ (xIsNext?' X':' O');
+    status="Next player: " + (xIsNext ? "X" : "O");
   }
 
   return (
@@ -66,13 +63,41 @@ function Board() {
 }
 
 export default function Game(){
+  const[history,sethistory]=useState([Array(9).fill(null)]);
+  const[currmove,setcurrmove]=useState(0)
+  const xIsNext = currmove % 2 === 0;
+  const currSqr=history[currmove];
+  function handleGame(currsqr){
+    const nextHistory = [...history.slice(0, currmove + 1), currsqr];
+    sethistory(nextHistory);
+    setcurrmove(nextHistory.length - 1);
+  }
+
+  function jump(nextmove){
+    setcurrmove(nextmove)
+  }
+
+  const moves=history.map((sqr,move)=>{
+    let description
+    if (move>0) {
+      description='Go to move #'+move;
+    } else {
+      description='Go to Game Start.'
+    }
+    return(
+      <li key={move}>
+        <button className="btn-move" onClick={()=>jump(move)}>{description}</button>
+      </li>
+    );
+  })
+
   return (
     <div className="game">
       <div className="game-board">
-        <Board />
+        <Board xIsNext={xIsNext} sqr={currSqr} onplay={handleGame} />
       </div>
       <div className="game-info">
-        <ol>{/*TODO*/}</ol>
+        <ol>{moves}</ol>
       </div>
     </div>
   );
@@ -101,6 +126,6 @@ function CalculateWins(sqr) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Board />
+    <Game />
   </React.StrictMode>,
 );

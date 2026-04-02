@@ -33,3 +33,13 @@
 .square:focus {
     outline: none;
 }
+
+.btn-move{
+    background-color: turquoise;
+    height: 5vh;
+    width: 10vw;
+    font-size: 16px;
+    position: relative;
+        left: 15rem;
+    bottom: 9.5rem;
+}
